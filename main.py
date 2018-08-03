@@ -29,6 +29,15 @@ def remove_emoji(string):
                            "]+", flags=re.UNICODE)
     return emoji_pattern.sub(r'', string)
 
+def iterate_string(string):
+    for c in string:
+        if c == '1':
+            return '1'
+        if c == '2':
+            return '2'
+        if c== '3':
+            return '3'
+        
 # Soup setup #
 web_page = "https://www.instagram.com/p/Bl7pSQehs6Z/?taken-by=student.design"
 page_response = requests.get(web_page, timeout=5)
@@ -47,8 +56,6 @@ try:
 except TimeoutException:
     print("Timed out waiting for page to load")
     browser.quit()
-
-
 
 while True:
     try :
@@ -75,11 +82,11 @@ for comment in comments:
 
 # Count # and type of votes and store into array #
 for item in comment_array:
-    if item == '1':
+    if iterate_string(item) == '1':
         one = one + 1
-    if item == '2':
+    if iterate_string(item) == '2':
         two = two + 1
-    if item == '3':
+    if iterate_string(item) == '3':
         three = three + 1
     performance = [one, two, three]
 
@@ -98,7 +105,6 @@ accuracy = ((1-(counter-performance_counter)/counter))*100
 # Print everything
 print('There are ' + str(counter) + ' votes')
 print('There are ' + str(performance_counter) +  ' votes counted')
-print('The machine is displaying with ' + str(accuracy) + ' % accuracy')
+print('The machine is displaying with ' + str(accuracy) + '% accuracy')
 
 plt.show()
-
